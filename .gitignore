@@ -1,5 +1,6 @@
 # API keys - NEVER commit this file
 .env
+.streamlit/secrets.toml
 
 # ChromaDB vector store (generated data)
 chroma_db/
@@ -11,3 +12,6 @@ __pycache__/
 # Your uploaded documents (optional - remove this line if you want to track them)
 docs/*.pdf
 docs/*.txt
+
+# Streamlit Cloud
+.streamlit/

@@ -16,8 +16,27 @@ import streamlit as st
 from dotenv import load_dotenv
 import shutil
 
-# Load environment variables
+# Load environment variables (for local development)
 load_dotenv()
+
+# Set Google API Key - works for both local and Streamlit Cloud
+def get_google_api_key():
+    """Get Google API key from environment or Streamlit secrets."""
+    # Try Streamlit Cloud secrets first
+    try:
+        if hasattr(st, 'secrets') and 'google' in st.secrets:
+            return st.secrets['google']['api_key']
+    except Exception:
+        pass
+    
+    # Fall back to environment variable (local development)
+    return os.environ.get("GOOGLE_API_KEY", "")
+
+# Set the API key in environment for other modules to use
+api_key = get_google_api_key()
+if api_key:
+    os.environ["GOOGLE_API_KEY"] = api_key
+    os.environ["GEMINI_API_KEY"] = api_key  # For CrewAI/LiteLLM
 
 # Set page configuration
 st.set_page_config(
