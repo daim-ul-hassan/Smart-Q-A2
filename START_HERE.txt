@@ -1,0 +1,103 @@
+================================================================================
+  SMART BOOK Q&A CREW - GET STARTED
+================================================================================
+
+🎯 WHAT YOU HAVE NOW:
+---------------------
+✅ Streamlit Web App (app.py) - Beautiful web interface
+✅ Setup Checker (setup.py) - Verify everything is ready
+✅ Complete documentation (README.md)
+✅ All necessary files configured
+
+📋 NEXT STEPS (in order):
+--------------------------
+
+STEP 1: Check Your Setup
+   Run this command to see what's missing:
+   
+   python setup.py
+   
+   This will check:
+   - Python version
+   - API key configuration
+   - Required packages
+   - Document folder
+
+
+STEP 2: Install Dependencies (if needed)
+   If setup.py shows missing packages, run:
+   
+   pip install -r requirements.txt
+
+
+STEP 3: Get Your Google API Key
+   1. Go to: https://aistudio.google.com/apikey
+   2. Sign in with your Google account
+   3. Click "Create API Key"
+   4. Copy the key
+
+
+STEP 4: Configure Your API Key
+   Option A - Use the .env file:
+   - Copy .env.example to .env (already done by setup.py)
+   - Edit .env and replace "your_api_key_here" with your actual key
+   
+   Option B - Give me your API key and I'll set it up for you
+
+
+STEP 5: Run the Streamlit App
+   streamlit run app.py
+   
+   The app will open automatically in your browser at:
+   http://localhost:8501
+
+
+🌐 USING THE WEB APP:
+---------------------
+Once the app opens in your browser:
+
+1. 📤 Upload Documents Tab
+   - Upload your PDF or TXT files
+   - They'll be saved to the docs/ folder
+
+2. 🔧 Build Vector Store Tab
+   - Click "Build Vector Store" button
+   - Wait for processing to complete
+   - This creates a searchable index
+
+3. ❓ Ask Questions Tab
+   - Type your question
+   - Click "Ask"
+   - Watch the 3-agent crew work together!
+
+
+🤖 HOW IT WORKS:
+----------------
+Three AI agents collaborate:
+  Agent 1 (Retriever) 🔍 - Finds relevant document chunks
+  Agent 2 (Writer) ✍️ - Writes clear answers
+  Agent 3 (Checker) ✅ - Verifies accuracy
+
+
+📁 YOUR FILES:
+--------------
+app.py              → Main Streamlit web app (USE THIS!)
+setup.py            → Setup checker (run first)
+requirements.txt    → Python packages needed
+.env.example        → Template for API key
+README.md           → Full documentation
+docs/               → Put your PDF/TXT files here
+main.py             → Command-line version (alternative)
+rag_setup.py        → Command-line vector builder (alternative)
+
+
+❓ NEED HELP?
+-------------
+- Check README.md for detailed instructions
+- Run "python setup.py" to diagnose issues
+- Make sure .env file has your GOOGLE_API_KEY
+
+
+================================================================================
+  READY TO START? Run: python setup.py
+================================================================================
