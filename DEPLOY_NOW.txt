@@ -1,0 +1,94 @@
+================================================================================
+  DEPLOY TO STREAMLIT CLOUD - QUICK GUIDE
+================================================================================
+
+✅ YOUR APP IS READY FOR DEPLOYMENT!
+
+All necessary changes have been made and pushed to GitHub.
+
+📋 WHAT WAS UPDATED:
+--------------------
+✅ app.py - Now supports both local (.env) and cloud (secrets.toml)
+✅ .gitignore - Excludes secret files from Git
+✅ .streamlit/secrets.toml.example - Template for API key
+✅ DEPLOYMENT.md - Complete deployment guide
+✅ All changes pushed to GitHub
+
+🚀 DEPLOY IN 5 STEPS:
+---------------------
+
+1. GO TO STREAMLIT CLOUD
+   Visit: https://streamlit.io/cloud
+   Sign in with your GitHub account
+
+2. CREATE NEW APP
+   Click "New app"
+   Repository: daim-ul-hassan/Smart-Q-A2
+   Branch: main
+   Main file: app.py
+
+3. ADD YOUR API KEY (IMPORTANT!)
+   Click "Advanced settings"
+   In "Secrets", add:
+   
+   [google]
+   api_key = "YOUR_GOOGLE_API_KEY_HERE"
+   
+   Get your key from: https://aistudio.google.com/apikey
+
+4. DEPLOY
+   Click "Deploy!"
+   Wait 2-5 minutes
+
+5. ACCESS YOUR APP
+   Your app will be live at:
+   https://your-app-name.streamlit.app
+
+⚠️  IMPORTANT LIMITATION:
+-------------------------
+Streamlit Cloud doesn't have persistent storage!
+
+This means:
+❌ Uploaded documents disappear after each session
+❌ Vector store (chroma_db/) won't persist
+
+SOLUTIONS:
+Option 1: Pre-build vector store locally and commit to Git
+Option 2: Use cloud storage (Google Drive, AWS S3, etc.)
+Option 3: Keep Streamlit Cloud for demo, run locally for full use
+
+📖 DETAILED GUIDE:
+------------------
+See DEPLOYMENT.md for complete instructions including:
+- Step-by-step deployment
+- Troubleshooting tips
+- Managing your deployment
+- Alternative deployment options
+
+🔄 UPDATE YOUR APP:
+-------------------
+After making changes:
+1. git add .
+2. git commit -m "Your message"
+3. git push origin main
+
+Streamlit Cloud will auto-redeploy in 1-2 minutes!
+
+💰 COST:
+--------
+✅ FREE for public apps
+✅ Unlimited deployments
+✅ Automatic HTTPS/SSL
+✅ Auto-scaling included
+
+🎯 READY TO DEPLOY?
+-------------------
+Just follow the 5 steps above!
+
+Need your Google API key?
+→ Go to: https://aistudio.google.com/apikey
+→ Sign in → Create API Key → Copy it
+
+Questions? Check DEPLOYMENT.md for detailed help!
+
+================================================================================
