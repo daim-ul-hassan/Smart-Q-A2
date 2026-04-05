@@ -1,12 +1,9 @@
-# Smart Book Q&A Crew - Dependencies
-# Install with: pip install -r requirements.txt
-
-crewai                     # Multi-agent framework
-langchain                  # Document processing tools
-langchain-chroma           # ChromaDB integration for LangChain
-langchain-google-genai     # Google Gemini embeddings
-langchain-community        # Document loaders (PDF, TXT)
-chromadb                   # Vector database to store document chunks
-pypdf                      # Read PDF files
-python-dotenv              # Load API keys from .env file
-streamlit                  # Web interface for the application
+crewai==0.28.8
+langchain==0.1.16
+langchain-google-genai==1.0.3
+langchain-chroma==0.1.0
+langchain-community==0.0.34
+chromadb==0.5.0
+pypdf==4.2.0
+python-dotenv==1.0.1
+streamlit==1.34.0
