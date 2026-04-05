@@ -43,7 +43,7 @@ retriever_agent = Agent(
         "Always use your RAG Search Tool to find information."
     ),
     tools=[rag_search_tool],
-    llm="gemini/gemini-2.0-flash",
+    llm="gemini/gemini-1.5-flash",
     verbose=True
 )
 
@@ -58,7 +58,7 @@ writer_agent = Agent(
         "answers. You ONLY use information from the provided source chunks - "
         "you never make things up or add outside knowledge."
     ),
-    llm="gemini/gemini-2.0-flash",
+    llm="gemini/gemini-1.5-flash",
     verbose=True
 )
 
@@ -72,7 +72,7 @@ checker_agent = Agent(
         "against the original source text and make sure every fact is accurate. "
         "If something is wrong or missing, you flag it clearly."
     ),
-    llm="gemini/gemini-2.0-flash",
+    llm="gemini/gemini-1.5-flash",
     verbose=True
 )
 
