@@ -16,7 +16,7 @@ def create_tasks(question):
 
     check_task = Task(
         description="Compare the answer against the source chunks and verify accuracy.",
-        expected_output="Verified answer with status: 'Verified' or 'Needs Correction'.",
+        expected_output="Return the FULL text of the final written answer, followed by [Status: Verified or Needs Correction].",
         agent=checker_agent
     )
 

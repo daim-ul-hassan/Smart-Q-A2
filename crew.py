@@ -9,4 +9,5 @@ def run_crew(question):
         process=Process.sequential,
         verbose=True
     )
-    return crew.kickoff()
+    result = crew.kickoff()
+    return result.raw if hasattr(result, 'raw') else str(result)

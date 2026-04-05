@@ -117,8 +117,8 @@ def create_tasks(question: str):
             "3. Which source chunk(s) support the answer"
         ),
         expected_output=(
-            "The verified answer with a status: "
-            "'Verified - all facts match' or 'Needs Correction - [reason]'."
+            "Return the FULL text of the final written answer verbatim, followed by "
+            "[Status: Verified or Needs Correction]."
         ),
         agent=checker_agent
     )
@@ -143,7 +143,7 @@ def run_crew(question: str):
     )
 
     result = crew.kickoff()
-    return result
+    return result.raw if hasattr(result, 'raw') else str(result)
 
 
 # ============================================================
