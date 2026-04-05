@@ -68,7 +68,7 @@ def build_vector_store(docs_folder="docs"):
     # ---- Step 3 & 4: Create embeddings and store in ChromaDB ----
     # Embeddings convert text into numbers so we can measure similarity.
     # ChromaDB stores these embeddings and lets us search by meaning.
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
 
     vector_store = FAISS.from_documents(chunks, embeddings)
     vector_store.save_local("faiss_index")

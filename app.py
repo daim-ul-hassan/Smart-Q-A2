@@ -53,7 +53,7 @@ def build_store():
     if os.path.exists("faiss_index"):
         shutil.rmtree("faiss_index")
         
-    vector_store = FAISS.from_documents(chunks, GoogleGenerativeAIEmbeddings(model="models/text-embedding-004"))
+    vector_store = FAISS.from_documents(chunks, GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001"))
     vector_store.save_local("faiss_index")
     progress.progress(100)
     st.success("Vector store ready!")

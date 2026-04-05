@@ -33,7 +33,7 @@ def rag_search_tool(query: str) -> str:
         return "Error: No vector store found. Please run 'python rag_setup.py' first."
 
     # Connect to the existing FAISS vector store
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
     vector_store = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
 
     # Search for the 3 most relevant chunks (semantic search)
