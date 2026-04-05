@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 import shutil
 from crew import run_crew
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
 
 load_dotenv()
 
@@ -50,36 +50,47 @@ def build_store():
     chunks = splitter.split_documents(all_docs)
     progress.progress(66)
     
-    if os.path.exists("chroma_db"):
-        shutil.rmtree("chroma_db")
+    if os.path.exists("faiss_index"):
+        shutil.rmtree("faiss_index")
         
-    Chroma.from_documents(chunks, GoogleGenerativeAIEmbeddings(model="models/embedding-001"), persist_directory="chroma_db")
+    vector_store = FAISS.from_documents(chunks, GoogleGenerativeAIEmbeddings(model="models/embedding-001"))
+    vector_store.save_local("faiss_index")
     progress.progress(100)
     st.success("Vector store ready!")
 
 def main():
     st.title("Smart Book Q&A Crew")
-    page = st.sidebar.radio("Menu", ["Home", "Upload", "Build Index", "Ask"])
+    st.info("This app uses 3 agents: Retriever, Writer, and Checker.")
 
-    if page == "Home":
-        st.info("This app uses 3 agents: Retriever, Writer, and Checker.")
-    elif page == "Upload":
-        files = st.file_uploader("Upload PDFs/TXT", type=['pdf', 'txt'], accept_multiple_files=True)
-        if files and st.button("Save Files"):
+    st.divider()
+    
+    st.subheader("1. Document Setup")
+    files = st.file_uploader("Upload PDFs or Text files:", type=['pdf', 'txt'], accept_multiple_files=True)
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        if files and st.button("💾 Save Files", use_container_width=True):
             save_uploaded_files(files)
-            st.success("Files saved to docs/")
-    elif page == "Build Index":
-        if st.button("Index Documents"):
+            st.success("Files saved successfully!")
+    with col2:
+        if st.button("⚙️ Build Index", use_container_width=True):
             build_store()
-    elif page == "Ask":
-        q = st.text_input("Question:")
-        if st.button("Ask Crew"):
-            if os.path.exists("chroma_db"):
-                with st.spinner("Agents are working..."):
-                    res = run_crew(q)
-                    st.write("**Final Answer:**", res)
-            else:
-                st.warning("Please build the index first.")
+
+    st.divider()
+
+    st.subheader("2. Ask the Crew")
+    q = st.text_input("What would you like to know about the documents?")
+    if st.button("🚀 Ask Crew", type="primary"):
+        if not q:
+            st.warning("Please type a question first.")
+        elif os.path.exists("faiss_index"):
+            with st.spinner("Agents are researching..."):
+                res = run_crew(q)
+                st.success("Answer Generated!")
+                st.write("### Final Answer")
+                st.write(res)
+        else:
+            st.warning("⚠️ Please build the index first using the button above.")
 
 if __name__ == "__main__":
     main()

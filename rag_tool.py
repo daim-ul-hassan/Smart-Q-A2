@@ -14,7 +14,7 @@ How it works:
 import os
 from crewai.tools import tool
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
 from dotenv import load_dotenv
 
 # Load the API key
@@ -29,15 +29,12 @@ def rag_search_tool(query: str) -> str:
     """
 
     # Check if the vector store exists
-    if not os.path.exists("chroma_db"):
+    if not os.path.exists("faiss_index"):
         return "Error: No vector store found. Please run 'python rag_setup.py' first."
 
-    # Connect to the existing ChromaDB vector store
+    # Connect to the existing FAISS vector store
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-    vector_store = Chroma(
-        persist_directory="chroma_db",
-        embedding_function=embeddings
-    )
+    vector_store = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
 
     # Search for the 3 most relevant chunks (semantic search)
     results = vector_store.similarity_search(query, k=3)

@@ -14,9 +14,9 @@ Run this ONCE before asking questions:
 import os
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
 
 # Load the API key from the .env file
 load_dotenv()
@@ -70,11 +70,8 @@ def build_vector_store(docs_folder="docs"):
     # ChromaDB stores these embeddings and lets us search by meaning.
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 
-    vector_store = Chroma.from_documents(
-        documents=chunks,
-        embedding=embeddings,
-        persist_directory="chroma_db"   # Save to disk so we can reuse it
-    )
+    vector_store = FAISS.from_documents(chunks, embeddings)
+    vector_store.save_local("faiss_index")
 
     print(f"  Vector store ready! Indexed {len(chunks)} chunks.")
     print("  You can now run: python main.py")
