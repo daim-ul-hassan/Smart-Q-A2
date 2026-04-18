@@ -149,7 +149,7 @@ def main() -> None:
         """
         <div class="main-shell">
             <div class="hero-title">Smart Book Q&amp;A</div>
-            <div class="hero-copy">Upload one PDF, build the vector database, and ask questions from the document.</div>
+            <div class="hero-copy">Upload a PDF or TXT file, build the vector database, and ask questions from the document.</div>
             <div class="hero-flow">Upload -&gt; Vector -&gt; Ask</div>
         </div>
         """,
@@ -162,8 +162,8 @@ def main() -> None:
             """
             <div class="step-card">
                 <div class="step-icon">&#128196;</div>
-                <div class="step-title">Upload PDF</div>
-                <div class="step-text">Add the file the student wants to ask about.</div>
+                <div class="step-title">Upload File</div>
+                <div class="step-text">Add the PDF or TXT file the student wants to ask about.</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -195,15 +195,15 @@ def main() -> None:
     control_col_1, control_col_2 = st.columns([1.05, 0.95], gap="large")
 
     with control_col_1:
-        st.subheader("Upload PDF")
+        st.subheader("Upload File")
         uploaded_file = st.file_uploader(
-            "Choose a PDF file",
-            type=["pdf"],
+            "Choose a PDF or TXT file",
+            type=["pdf", "txt"],
         )
 
-        if st.button("Save PDF", use_container_width=True):
+        if st.button("Save File", use_container_width=True):
             if not uploaded_file:
-                st.warning("Choose a PDF file first.")
+                st.warning("Choose a PDF or TXT file first.")
             else:
                 saved_count = save_uploaded_files([uploaded_file])
                 st.success(f"Saved {saved_count} file(s) to `{DOCS_DIR.name}/`.")
@@ -233,7 +233,7 @@ def main() -> None:
     with control_col_2:
         st.subheader("Enter Your Question")
         question = st.text_input(
-            "Ask about the uploaded PDF",
+            "Ask about the uploaded file",
             placeholder="For example: Summarize chapter 1",
         )
 
@@ -244,7 +244,7 @@ def main() -> None:
                 st.warning("Build the document index first.")
             else:
                 try:
-                    with st.spinner("The crew is reading the PDF and preparing an answer..."):
+                    with st.spinner("The crew is reading the file and preparing an answer..."):
                         answer = run_crew(question.strip())
                 except Exception as error:
                     st.error(f"The crew could not finish the request: {error}")
