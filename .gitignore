@@ -1,17 +1,22 @@
-# API keys - NEVER commit this file
+# API keys - never commit secrets
 .env
+.env.*
+!.env.example
 .streamlit/secrets.toml
 
-# ChromaDB vector store (generated data)
-chroma_db/
-
-# Python cache files
+# Generated runtime data
+faiss_index/
 __pycache__/
 *.pyc
 
-# Your uploaded documents (optional - remove this line if you want to track them)
+# Local editor/tooling
+.qoder/
+
+# User-uploaded documents
 docs/*.pdf
 docs/*.txt
 
-# Streamlit Cloud
-.streamlit/
+# Allow tracked Streamlit config/examples
+!.streamlit/
+!.streamlit/*.example
+!.streamlit/config.toml
