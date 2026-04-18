@@ -26,12 +26,10 @@ def create_tasks(question: str) -> list[Task]:
     check_task = Task(
         description=(
             "Compare the answer against the source chunks and verify each claim.\n"
-            "Return the final verified answer, a verdict, and the supporting chunks."
+            "Return only the final verified answer in a clean form.\n"
+            "Do not include verdict labels, chunk listings, source breakdowns, or extra formatting."
         ),
-        expected_output=(
-            "The full verified answer followed by "
-            "[Status: Verified or Needs Correction]."
-        ),
+        expected_output="The final verified answer only.",
         agent=checker_agent,
     )
 
