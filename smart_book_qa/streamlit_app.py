@@ -74,6 +74,9 @@ def apply_theme() -> None:
             font-size: 0.92rem;
             margin-bottom: 0.35rem;
         }
+        a {
+            color: #ffffff !important;
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -95,10 +98,12 @@ def sidebar_settings() -> str:
     with st.sidebar:
         st.markdown("### Student")
         user_name = st.text_input("Name (optional)", placeholder="Enter your name")
+        st.caption("Need a key first?")
+        st.markdown("[Get a Google Gemini API key](https://aistudio.google.com/apikey)")
         sidebar_api_key = st.text_input(
-            "🔑 API Key",
+            "API Key",
             type="password",
-            placeholder="Paste only if not using .env or secrets",
+            placeholder="Paste your API key here",
         )
         if sidebar_api_key.strip():
             st.session_state.api_key_override = sidebar_api_key.strip()
@@ -139,10 +144,7 @@ def main() -> None:
     configure_llm_api_key()
 
     if not get_api_key():
-        st.error(
-            "Missing API key. Add `GOOGLE_API_KEY` to `.env` locally or set "
-            "`[google].api_key` in Streamlit secrets before using the app."
-        )
+        st.error("Missing API key. Paste your Google Gemini API key in the sidebar to use the app.")
         st.stop()
 
     st.markdown(

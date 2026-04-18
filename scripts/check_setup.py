@@ -25,20 +25,26 @@ def check_env_file() -> bool:
     if os.path.exists(".env"):
         print("OK: .env file found")
         with open(".env", "r", encoding="utf-8") as file:
-            content = file.read()
-        if "GOOGLE_API_KEY=" in content and "your_actual_api_key_here" not in content:
+            lines = file.readlines()
+        key_value = ""
+        for line in lines:
+            if line.startswith("GOOGLE_API_KEY="):
+                key_value = line.split("=", 1)[1].strip()
+                break
+        if key_value:
             print("OK: Google API key appears to be configured")
             return True
-        print("Warning: .env exists but the API key may still be blank.")
-        return False
+        print("Info: .env exists and the API key is blank.")
+        print("      Users can paste their own API key in the app sidebar.")
+        return True
 
     if os.path.exists(".streamlit/secrets.toml"):
         print("OK: Streamlit secrets file found")
         return True
 
-    print("Warning: no local .env or .streamlit/secrets.toml file found.")
-    print("         Copy .env.example or configure Streamlit secrets before running the app.")
-    return False
+    print("Info: no local .env or .streamlit/secrets.toml file found.")
+    print("      Users can paste their own API key in the app sidebar.")
+    return True
 
 
 def check_dependencies() -> bool:
@@ -113,7 +119,7 @@ def main() -> None:
         print("   1. Go to: https://aistudio.google.com/apikey")
         print("   2. Sign in with Google")
         print("   3. Click 'Create API Key'")
-        print("   4. Copy the key to your .env file")
+        print("   4. Paste the key into the app sidebar")
 
     print("=" * 60)
 

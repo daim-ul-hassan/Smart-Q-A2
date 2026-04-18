@@ -9,20 +9,18 @@ Streamlit app for uploading PDF or TXT files, building a FAISS index, and using 
 pip install -r requirements.txt
 ```
 
-2. Create `.env` from `.env.example` and add your Gemini key:
-```bash
-copy .env.example .env
-```
-
-3. Start the Streamlit app:
+2. Start the Streamlit app:
 ```bash
 streamlit run app.py
 ```
 
+3. Paste your Google Gemini API key into the sidebar input.
+
 ## Streamlit Deployment
 
 - Main file: `app.py`
-- Secrets format:
+- Users can paste their own API key in the sidebar
+- Or set app-wide secrets:
 ```toml
 [google]
 api_key = "your_actual_api_key_here"

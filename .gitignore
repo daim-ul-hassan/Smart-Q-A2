@@ -1,7 +1,6 @@
 # API keys - never commit secrets
 .env
 .env.*
-!.env.example
 .streamlit/secrets.toml
 
 # Generated runtime data
